@@ -2,6 +2,8 @@ import direction.Direction;
 import direction.North;
 import position.Position;
 
+import java.util.List;
+
 public class MarsRover {
 
     private Direction direction = new North();
@@ -24,6 +26,33 @@ public class MarsRover {
 
     public Position moveBackward() {
         position = direction.moveBackward(position);
+        return position;
+    }
+
+    public void move(List<Command> commands) {
+        commands.stream().forEach(command -> {
+            switch (command) {
+                case TURN_LEFT:
+                    turnLeft();
+                    break;
+                case TURN_RIGHT:
+                    turnRight();
+                    break;
+                case MOVE_FORWARD:
+                    moveForward();
+                    break;
+                case MOVE_BACKWARD:
+                    moveBackward();
+                    break;
+            }
+        });
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public Position getPosition() {
         return position;
     }
 }
